@@ -130,3 +130,19 @@ def del_stpbridge(bridge):
 def del_stpport(port):
 	delstpport = subprocess.call(['sudo', 'ovs-vsctl', 'clear', 'port', port , 'other_config'])
 
+#-------------------------------OpenFlow Version-------------
+#Forget  this
+def add_openflowv(bridge,protocols):
+	addopenflowver = subprocess.call(['sudo', 'ovs-vsctl', 'set', 'bridge', bridge, protocols])
+
+def update_openflowv(bridge, protocols):
+	updateopenflowver = subprocess.call(['sudo', 'ovs-vsctl', 'set', 'bridge', bridge, protocols])
+
+def get_openflowv(bridge):
+	getopenflowv = subprocess.check_output(['sudo', 'ovs-vsctl', 'get', 'bridge', bridge, 'protocols'])
+	return getopenflowv
+
+def del_openflowv(bridge):
+	delopenflowver = subprocess.call(['sudo', 'ovs-vsctl', 'clear', 'bridge', bridge, 'protocols'])
+
+#------------------------------------------------------------------

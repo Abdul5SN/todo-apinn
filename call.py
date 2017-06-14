@@ -232,7 +232,33 @@ def del_stpcost(port):
 	return jsonify({'STP Config(Cost) for Port': 'Cleared',
 			'Port': port}),201
 
-#-------------------------------------------------------------------------------
+#--------------------------------------------------------------------------
+#Add OpenFlowVersion
+@call.route('/addopenflowversion/<bridge>', methods=['POST'])
+def add_openflowversion(bridge):
+	protocol = request.json['protocol']
+	subp.add_openflowv(bridge,protocol)
+	return jsonify({'Bridge': bridge,
+			'OpenFlow Version Added':protocol}),201
+
+#Update OpenFlowVersion
+@call.route('/updateopenflowversion/<bridge>', methods=['PUT'])
+def update_openflowversion(bridge):
+        protocol = request.json['protocol']
+        subp.add_openflowv(bridge,protocol)
+        return jsonify({'Bridge': bridge,
+                        'OpenFlow Version Updated':protocol}),201
+
+@call.route('/delopenflowversion/<bridge>', methods=['DELETE'])
+def delete_openflowversion(bridge):
+	subp.del_openflowv(bridge)
+	return jsonify ({'Bridge':bridge,
+			'OpenFlow  Version': 'CLEARED'}),201
+
+
+@call.route('/getopenflowversion/<bridge>', methods=['GET'])
+def get_openflowversion(bridge):
+	return subp.get_openflowv(bridge)
 
 if __name__ == '__main__':
 	call.run(debug=True)
